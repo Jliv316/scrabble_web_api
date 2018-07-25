@@ -7,7 +7,7 @@ class Api::V1::GamesController < ApplicationController
   end
 
   def show
-    render json: Game.find(params[:id]).game_scores, serializer: GameScoreSerializer
+    render json: Game.find(params[:id]).game_scores
   end
 
   def create
