@@ -4,9 +4,9 @@ class SentenceService
   end
 
   def sentences
-  binding.pry
-    data.each do |info|
-    binding.pry
+    sentence_info = data[:results][0][:lexicalEntries][0][:sentences]
+    sentences_na = sentence_info.map do |info|
+      info[:text]
     end
   end
 
@@ -22,7 +22,7 @@ class SentenceService
     end
 
     response = conn.get do |req|
-      req.url "/api/v1/entries/en/ace/sentences"
+      req.url "/api/v1/entries/en/mindfulness/sentences?region=gb"
       req.headers['Accept'] = "application/json"
       req.headers['app_id'] = "5e4fdf55"
       req.headers['app_key'] = "0128babb00b82a3039f8a6973c89ecc0"
