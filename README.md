@@ -12,3 +12,11 @@
 * Install an HTTP library (i.e. [Faraday](https://github.com/lostisland/faraday), [HTTPart](https://github.com/jnunemaker/httparty))
 * Decide how you want to mock HTTP calls (i.e. [Webmock](https://github.com/bblimke/webmock), [vcr](https://github.com/vcr/vcr))
 * Decide how you want to handle and hide ENV variables
+
+* Things to remember:
+
+* response = Faraday.post('/api/v1/games', params: { opponent_email: @user.username }, headers: {"HTTP_X_API_KEY" => player_1.api_key})
+
+* Post requests to your api will go to create action of your controller
+* include the following before action: skip_before_action :verify_authenticity_token
+
