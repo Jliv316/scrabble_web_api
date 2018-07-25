@@ -1,21 +1,28 @@
 require 'rails_helper'
 
 describe 'scrabble API' do
+  let(:user1){ create(:user)}
+  let(:user2){ create(:user)}
  
  context 'get request to /api/v1/games/1' do
     it 'responds with game, users, and scores' do
+       game = create(:game, player_1: user1.id, player_2: user2.id)
+      create(:play, user_id: user1.id, game_id: game.id, word: "at", score: 2)
+      create(:play, user_id: user2.id, game_id: game.id, word: "at", score: 2)
 
       get '/api/v1/games/1'
 
       game = JSON.parse(response.body)
-
+      binding.pry
       expect(response).to be_successful
-      expect(invoice_items.count).to eq(3)
     end
   end
 
   context 'sends post request to /api/v1/games/1/plays with a user_id=1 and word=at' do
     it '201 Created Response' do
+       game = create(:game, player_1: user1.id, player_2: user2.id)
+      create(:play, user_id: user1.id, game_id: game.id, word: "at", score: 2)
+      create(:play, user_id: user2.id, game_id: game.id, word: "at", score: 2)
 
       post "/api/v1/games/1/plays"
 
@@ -24,21 +31,17 @@ describe 'scrabble API' do
   end
 
   context 'get request to /api/v1/games/1' do
-    it 'responds with game, users, and scores' do
-      id = create(:invoice_item).id
+    it 'updates user 1s score to 17' do
+       game = create(:game, player_1: user1.id, player_2: user2.id)
+      create(:play, user_id: user1.id, game_id: game.id, word: "at", score: 2)
+      create(:play, user_id: user2.id, game_id: game.id, word: "at", score: 2)
 
-      get "/api/v1/invoice_items/#{id}"
-
-      invoice_item = JSON.parse(response.body)
-
-      expect(response).to be_successful
-      expect(invoice_item["id"]).to eq(id)
+      post "/api/v1/games/1/plays"
 
       get '/api/v1/games/1'
 
       game = JSON.parse(response.body)
 
-      expect(response).to be_successful
-      expect(invoice_items.count).to eq(3)
     end
   end
+end
