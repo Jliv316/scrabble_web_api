@@ -16,7 +16,7 @@
       </div>
       <%= form_tag :search, method: :get, class: "form-inline" do %>
         <div class="form-group search-field">
-          <%= text_field_tag :q, "Search by word", class: "form-control" %>
+          <%= text_field_tag :word, "Search by word", class: "form-control" %>
           <%= submit_tag "Search", class: "btn btn-primary" %>
         </div>
       <% end %>
